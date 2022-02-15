@@ -11,7 +11,7 @@ parameters:
   EbDeploymentPolicy: 'RollingWithAdditionalBatch'
   SnsBounceNotificationEndpoint: 'agora-develop-bounce-notifications@sagebase.org'
   SnsNotificationEndpoint: 'agora-develop@sagebase.org'
-  EbSolutionStackName: '64bit Amazon Linux 2018.03 v4.17.9 running Node.js'
+  EbSolutionStackName: '64bit Amazon Linux 2 v5.4.10 running Node.js 12'
   EC2InstanceType: 't3.large'
   EC2KeyName: 'agora-access'
   MongodbHost: !stack_output_external agoradb-develop::PrimaryReplicaNodeIp
