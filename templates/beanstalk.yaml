@@ -80,46 +80,19 @@ Parameters:
   MongodbAccessSecurityGroup:
     Type: String
     Description: Security group with access to MongoDB servers
-  Department:
-    Description: 'The department for this resource'
+  VpcName:
+    Description: Name of an existing VPC to run the instance in.
     Type: String
-    AllowedPattern: '^\S*$'
-    ConstraintDescription: 'Must be string with no spaces'
-    Default: 'SysBio'
-  Project:
-    Description: 'The name of the project that this resource is used for'
+  CertificateArn:
+    Description: ARN of the SSL Certificate
     Type: String
-    AllowedPattern: '^\S*$'
-    ConstraintDescription: 'Must be string with no spaces'
-    Default: 'amp-ad'
-  OwnerEmail:
-    Description: 'Email address of the owner of this resource'
-    Type: String
-    AllowedPattern: '^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
-    ConstraintDescription: 'Must be an acceptable email address syntax(i.e. joe.smith@sagebase.org)'
-    Default: 'anna.greenwood@sagebase.org'
 Resources:
   S3AppDeployBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
       BucketName: !Ref AppDeployBucket
-      Tags:
-        - Key: "Department"
-          Value: !Ref Department
-        - Key: "Project"
-          Value: !Ref Project
-        - Key: "OwnerEmail"
-          Value: !Ref OwnerEmail
   LoadBalancerAccessLogsBucket:
     Type: 'AWS::S3::Bucket'
-    Properties:
-      Tags:
-        - Key: "Department"
-          Value: !Ref Department
-        - Key: "Project"
-          Value: !Ref Project
-        - Key: "OwnerEmail"
-          Value: !Ref OwnerEmail
   LoadBalancerAccessLogsBucketPolicy:
     Type: "AWS::S3::BucketPolicy"
     Properties:
@@ -166,12 +139,13 @@ Resources:
   R53RecordSet:
     Type: 'AWS::Route53::RecordSet'
     Properties:
-      HostedZoneId: !ImportValue us-east-1-agora-common-HostedZoneId
+      HostedZoneId:
+        'Fn::ImportValue': !Sub ${AWS::Region}-agora-dns-HostedZoneId
       Name: !Join
         - ''
         - - !Ref AWS::StackName
           - .
-          - !ImportValue us-east-1-agora-common-DNSDomainName
+          - 'Fn::ImportValue': !Sub ${AWS::Region}-agora-dns-DnsDomainName
           - .
       Type: CNAME
       TTL: 900
@@ -197,13 +171,15 @@ Resources:
               - 'iam:ListUsers'
               - 'iam:ListRoles'
             Effect: Allow
-            Resource: !ImportValue us-east-1-agora-common-KmsKeyArn
+            Resource:
+              'Fn::ImportValue': !Sub ${AWS::Region}-agora-common-KmsKeyArn
           - Sid: DecryptAccess
             Action:
               - 'kms:Encrypt'
               - 'kms:Decrypt'
             Effect: Allow
-            Resource: !ImportValue us-east-1-agora-common-KmsKeyArn
+            Resource:
+              'Fn::ImportValue': !Sub ${AWS::Region}-agora-common-KmsKeyArn
   SsmManagedPolicy:
     Type: "AWS::IAM::ManagedPolicy"
     Properties:
@@ -227,13 +203,15 @@ Resources:
   BeanstalkConfigTemplate:
     Type: 'AWS::ElasticBeanstalk::ConfigurationTemplate'
     Properties:
-      ApplicationName: !ImportValue us-east-1-agora-common-BeanstalkAppName
+      ApplicationName:
+        'Fn::ImportValue': !Sub ${AWS::Region}-agora-common-BeanstalkAppName
       SolutionStackName: !Ref EbSolutionStackName
       OptionSettings:
         # EB environment options
         - Namespace: 'aws:ec2:vpc'
           OptionName: VPCId
-          Value: !ImportValue us-east-1-computevpc-VPCId
+          Value:
+            'Fn::ImportValue': !Sub ${AWS::Region}-${VpcName}-VPCId
         - Namespace: 'aws:ec2:vpc'
           OptionName: ELBScheme
           Value: 'public'
@@ -244,16 +222,16 @@ Resources:
           OptionName: Subnets
           Value: !Join
             - ','
-            - - !ImportValue us-east-1-computevpc-PrivateSubnet
-              - !ImportValue us-east-1-computevpc-PrivateSubnet1
-              - !ImportValue us-east-1-computevpc-PrivateSubnet2
+            - - 'Fn::ImportValue': !Sub ${AWS::Region}-${VpcName}-PrivateSubnet
+              - 'Fn::ImportValue': !Sub ${AWS::Region}-${VpcName}-PrivateSubnet1
+              - 'Fn::ImportValue': !Sub ${AWS::Region}-${VpcName}-PrivateSubnet2
         - Namespace: 'aws:ec2:vpc'
           OptionName: ELBSubnets
           Value: !Join
             - ','
-            - - !ImportValue us-east-1-computevpc-PublicSubnet
-              - !ImportValue us-east-1-computevpc-PublicSubnet1
-              - !ImportValue us-east-1-computevpc-PublicSubnet2
+            - - 'Fn::ImportValue': !Sub ${AWS::Region}-${VpcName}-PublicSubnet
+              - 'Fn::ImportValue': !Sub ${AWS::Region}-${VpcName}-PublicSubnet1
+              - 'Fn::ImportValue': !Sub ${AWS::Region}-${VpcName}-PublicSubnet2
         - Namespace: 'aws:autoscaling:asg'
           OptionName: MaxSize
           Value: !Ref AutoScalingMaxSize
@@ -298,7 +276,8 @@ Resources:
           Value: !Ref EbDeploymentPolicy
         - Namespace: 'aws:elasticbeanstalk:environment'
           OptionName: ServiceRole
-          Value: !ImportValue us-east-1-agora-common-BeanstalkServiceRole
+          Value:
+            'Fn::ImportValue': !Sub ${AWS::Region}-agora-common-BeanstalkServiceRole
         - Namespace: 'aws:elasticbeanstalk:environment'
           OptionName: LoadBalancerType
           Value: 'application'
@@ -308,10 +287,9 @@ Resources:
         - Namespace: 'aws:elbv2:loadbalancer'
           OptionName: AccessLogsS3Enabled
           Value: 'true'
-        # use manually generated SSL certificate '*.adknowledgeportal.org'
         - Namespace: 'aws:elbv2:listener:443'
           OptionName: SSLCertificateArns
-          Value: 'arn:aws:acm:us-east-1:055273631518:certificate/af3dd144-7306-4c35-a514-2b36cbdefd08'
+          Value: !Ref CertificateArn
         - Namespace: 'aws:elbv2:listener:443'
           OptionName: Protocol
           Value: HTTPS
@@ -346,7 +324,8 @@ Resources:
   BeanstalkEnvironment:
     Type: 'AWS::ElasticBeanstalk::Environment'
     Properties:
-      ApplicationName: !ImportValue us-east-1-agora-common-BeanstalkAppName
+      ApplicationName:
+        'Fn::ImportValue': !Sub ${AWS::Region}-agora-common-BeanstalkAppName
       TemplateName: !Ref BeanstalkConfigTemplate
       EnvironmentName: !Join
         - '-'
@@ -405,7 +384,7 @@ Outputs:
       - - 'https://'
         - !Ref AWS::StackName
         - .
-        - !ImportValue us-east-1-agora-common-DNSDomainName
+        - 'Fn::ImportValue': !Sub ${AWS::Region}-agora-dns-DnsDomainName
     Export:
       Name: !Sub '${AWS::Region}-${AWS::StackName}-AppPublicEndpoint'
   BeanstalkEnvironmentName:

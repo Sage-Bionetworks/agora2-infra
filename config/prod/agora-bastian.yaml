@@ -1,0 +1,16 @@
+# Provision an EC2 bastian host for agora
+template:
+  path: bastian.yaml
+stack_name: agora-bastian-prod
+dependencies:
+  - common/agoravpc.yaml
+parameters:
+  VpcName: "agoravpc"
+  # Name of an the environment either develop, staging or prod
+  Environment: "prod"
+  # Name of an existing VPC subnet to run the instance in
+  VpcSubnet: "PublicSubnet"
+  # Name of an existing EC2 KeyPair to enable SSH access to the instance
+  KeyName: "agora-ci"
+  # (Optional) ID of the base AMI (supported distros: AWS linux)
+  AMIId: ami-003ed7eaef0321c8f     # AMI with mongo db tools
