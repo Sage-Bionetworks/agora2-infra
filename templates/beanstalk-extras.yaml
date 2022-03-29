@@ -9,7 +9,6 @@ Parameters:
   CertificateArn:
     Description: ARN of the SSL Certificate
     Type: String
-    Default: 'ampadscicomp.org'
 Resources:
   # Cloudforamtion does not support adding multiple certificats in Beanstalk
   # with aws:elbv2:listener:443 -> SSLCertificateArns therefore we configure

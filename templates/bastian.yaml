@@ -39,16 +39,6 @@ Parameters:
   VpcName:
     Description: Name of an existing VPC to run the instance in.
     Type: String
-    Default: computevpc
-  Department:
-    Description: The department for this resource (i.e. Computational Oncology)
-    Type: String
-  Project:
-    Description: The name of the project that this resource is used for (i.e. Resilience)
-    Type: String
-  OwnerEmail:
-    Description: The owner's email address for this resource (i.e. jsmith@sagebase.org)
-    Type: String
   AMIId:
     Description: ID of the AMI to deploy
     Type: AWS::EC2::Image::Id
@@ -79,14 +69,6 @@ Resources:
           SubnetId: !ImportValue
             'Fn::Sub': '${AWS::Region}-${VpcName}-${VpcSubnet}'
       Tags:
-        - Key: "Name"
-          Value: !Ref 'AWS::StackName'
-        - Key: "Department"
-          Value: !Ref Department
-        - Key: "Project"
-          Value: !Ref Project
-        - Key: "OwnerEmail"
-          Value: !Ref OwnerEmail
         - Key: "ManagedInstanceMaintenanceTarget"
           Value: "yes"
         - Key: "PatchGroup"
@@ -129,7 +111,3 @@ Outputs:
     Value: !GetAtt Ec2Instance.PublicIp
     Export:
       Name: !Sub '${AWS::Region}-${AWS::StackName}-Ec2InstancePublicIp'
-  OwnerEmail:
-    Value: !Ref OwnerEmail
-    Export:
-      Name: !Sub '${AWS::Region}-${AWS::StackName}-OwnerEmail'

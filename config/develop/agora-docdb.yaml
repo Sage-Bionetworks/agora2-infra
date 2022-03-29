@@ -1,12 +1,10 @@
 template:
   path: documentdb.yaml
 stack_name: agora-docdb-develop
-stack_tags:
-  Department: "Platform"
-  Project: "Infrastructure"
-  OwnerEmail: "it@sagebase.org"
+dependencies:
+  - common/agoravpc.yaml
 parameters:
-  VpcName: "computevpc"
+  VpcName: "agoravpc"
   MasterUser: "master"
   MasterPassword: !ssm /agora-develop/MongodbPassword
   DBInstanceClass: "db.r5.large"

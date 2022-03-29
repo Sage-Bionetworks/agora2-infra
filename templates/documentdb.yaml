@@ -76,7 +76,7 @@ Resources:
     Type: "AWS::DocDB::DBClusterParameterGroup"
     Properties:
       Description: "Agora Document DB configs"
-      Family: "docdb3.6"
+      Family: "docdb4.0"
       Parameters:
         audit_logs: "disabled"
         profiler: "enabled"

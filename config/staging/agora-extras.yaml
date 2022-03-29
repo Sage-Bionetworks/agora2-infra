@@ -4,5 +4,5 @@ stack_name: agora-staging-extras
 dependencies:
   - staging/agora.yaml
 parameters:
-  ListenerArn: "arn:aws:elasticloadbalancing:us-east-1:055273631518:listener/app/awseb-AWSEB-127W8W6VN1CO5/ee9bf61462fe0cd5/3fbbbcee4ffb55a5"
-  CertificateArn: "arn:aws:acm:us-east-1:055273631518:certificate/412c0ea4-8123-48dd-b0af-608558cbb902"   # *.ampadportal.org
+  ListenerArn: TBD
+  CertificateArn: !stack_output_external agora-dns::SSLCertificate
