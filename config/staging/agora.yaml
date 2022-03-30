@@ -2,8 +2,8 @@ template:
   path: beanstalk.yaml
 stack_name: agora-staging
 dependencies:
-  - staging/agora-common.yaml
-  - staging/agora-dns.yaml
+  - common/agora-common.yaml
+  - common/agora-dns.yaml
   - staging/agora-docdb.yaml
 parameters:
   AppDeployBucket: 'org-sagebase-agora-deployment-agora-staging'

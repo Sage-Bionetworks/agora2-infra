@@ -2,8 +2,8 @@ template:
   path: beanstalk.yaml
 stack_name: agora-prod
 dependencies:
-  - prod/agora-common.yaml
-  - prod/agora-dns.yaml
+  - common/agora-common.yaml
+  - common/agora-dns.yaml
   - prod/agora-docdb.yaml
 parameters:
   AppDeployBucket: 'org-sagebase-agora-deployment-agora-prod'
