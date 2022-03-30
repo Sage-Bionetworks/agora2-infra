@@ -4,6 +4,6 @@ stack_name: agora-prod-alb-redirector
 dependencies:
   - prod/agora.yaml
 parameters:
-  ListenerArn: "arn:aws:elasticloadbalancing:us-east-1:055273631518:listener/app/awseb-AWSEB-1AEIEZ8KICCU3/f27722898ec2b53f/253b0bccfa651346"
-  RedirectFromHost: "agora.ampadportal.org"
+  ListenerArn: TBD
+  RedirectFromHost: "agora-prod.agora-ampad.org"
   RedirectToHost: "agora.adknowledgeportal.org"

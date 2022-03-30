@@ -1,19 +1,16 @@
 # Provision an EC2 bastian host for agora
 template:
   path: bastian.yaml
-stack_name: agora-bastian
+stack_name: agora-bastian-staging
+dependencies:
+  - common/agoravpc.yaml
 parameters:
-  # The Sage deparment for this resource
-  Department: "SysBio"
-  # The Sage project this resource will be used for
-  Project: "amp-ad"
-  # The resource owner
-  OwnerEmail: "khai.do@sagebase.org"
-  # EC2 instance type (available types https://aws.amazon.com/ec2/instance-types/)
-  InstanceType: "t2.nano"
+  VpcName: "agoravpc"
+  # Name of an the environment either develop, staging or prod
+  Environment: "staging"
   # Name of an existing VPC subnet to run the instance in
   VpcSubnet: "PublicSubnet"
   # Name of an existing EC2 KeyPair to enable SSH access to the instance
-  KeyName: "agora-travis"
+  KeyName: "agora-ci"
   # (Optional) ID of the base AMI (supported distros: AWS linux)
   AMIId: ami-003ed7eaef0321c8f     # AMI with mongo db tools

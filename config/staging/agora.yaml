@@ -1,8 +1,12 @@
 template:
   path: beanstalk.yaml
 stack_name: agora-staging
+dependencies:
+  - staging/agora-common.yaml
+  - staging/agora-dns.yaml
+  - staging/agora-docdb.yaml
 parameters:
-  AppDeployBucket: 'org-sagebionetworks-agora-deployment-agora-staging'
+  AppDeployBucket: 'org-sagebase-agora-deployment-agora-staging'
   AppEnv: 'staging'
   AppHealthcheckUrl: '/about'
   AutoScalingMaxSize: '4'
@@ -11,8 +15,10 @@ parameters:
   EbDeploymentPolicy: 'RollingWithAdditionalBatch'
   SnsBounceNotificationEndpoint: 'agora-staging-bounce-notifications@sagebase.org'
   SnsNotificationEndpoint: 'agora-staging@sagebase.org'
-  EbSolutionStackName: '64bit Amazon Linux 2018.03 v4.17.9 running Node.js'
+  EbSolutionStackName: '64bit Amazon Linux 2 v5.5.0 running Node.js 16'
   EC2InstanceType: 't3.large'
   EC2KeyName: 'agora-access'
-  MongodbHost: !stack_output_external agoradb-staging::PrimaryReplicaNodeIp
-  MongodbAccessSecurityGroup: !stack_output_external agoradb-staging::MongoDBServerAccessSecurityGroup
+  MongodbHost: !stack_output_external agora-docdb-staging::ClusterEndpoint
+  MongodbAccessSecurityGroup: !stack_output_external agora-docdb-staging::DocumentDbAccessSecurityGroup
+  VpcName: 'agoravpc'
+  CertificateArn: !stack_output_external agora-dns::SSLCertificate

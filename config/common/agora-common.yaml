@@ -1,3 +1,5 @@
 template:
   path: beanstalk-common.yaml
 stack_name: agora-common
+parameters:
+  EbAppName: 'agora-ampad'
