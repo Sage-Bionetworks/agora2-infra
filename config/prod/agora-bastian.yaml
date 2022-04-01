@@ -2,6 +2,8 @@
 template:
   path: bastian.yaml
 stack_name: agora-bastian-prod
+stack_tags:
+  Environment: "prod"
 dependencies:
   - common/agoravpc.yaml
 parameters:

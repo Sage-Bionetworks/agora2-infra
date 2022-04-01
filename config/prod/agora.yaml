@@ -1,6 +1,8 @@
 template:
   path: beanstalk.yaml
 stack_name: agora-prod
+stack_tags:
+  Environment: "prod"
 dependencies:
   - common/agora-common.yaml
   - common/agora-dns.yaml

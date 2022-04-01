@@ -1,6 +1,8 @@
 template:
   path: documentdb.yaml
 stack_name: agora-docdb-staging
+stack_tags:
+  Environment: "staging"
 dependencies:
   - common/agoravpc.yaml
 parameters:

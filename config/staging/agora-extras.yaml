@@ -1,6 +1,8 @@
 template:
   path: beanstalk-extras.yaml
 stack_name: agora-staging-extras
+stack_tags:
+  Environment: "staging"
 dependencies:
   - staging/agora.yaml
 parameters:

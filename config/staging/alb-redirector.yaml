@@ -1,6 +1,8 @@
 template:
   path: alb-redirector.yaml
 stack_name: agora-staging-alb-redirector
+stack_tags:
+  Environment: "staging"
 dependencies:
   - staging/agora.yaml
 parameters:

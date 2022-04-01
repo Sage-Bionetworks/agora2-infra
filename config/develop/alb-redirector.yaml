@@ -1,6 +1,8 @@
 template:
   path: alb-redirector.yaml
 stack_name: agora-develop-alb-redirector
+stack_tags:
+  Environment: "develop"
 dependencies:
   - develop/agora.yaml
 parameters:

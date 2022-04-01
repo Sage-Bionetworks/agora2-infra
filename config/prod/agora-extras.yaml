@@ -1,6 +1,8 @@
 template:
   path: beanstalk-extras.yaml
 stack_name: agora-prod-extras
+stack_tags:
+  Environment: "prod"
 dependencies:
   - prod/agora.yaml
 parameters:

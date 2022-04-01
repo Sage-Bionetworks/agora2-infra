@@ -1,6 +1,8 @@
 template:
   path: documentdb.yaml
 stack_name: agora-docdb-prod
+stack_tags:
+  Environment: "prod"
 dependencies:
   - common/agoravpc.yaml
 parameters:

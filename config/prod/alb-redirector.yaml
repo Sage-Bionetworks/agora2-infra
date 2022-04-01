@@ -1,6 +1,8 @@
 template:
   path: alb-redirector.yaml
 stack_name: agora-prod-alb-redirector
+stack_tags:
+  Environment: "prod"
 dependencies:
   - prod/agora.yaml
 parameters:

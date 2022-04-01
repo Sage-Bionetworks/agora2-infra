@@ -2,6 +2,8 @@
 template:
   path: bastian.yaml
 stack_name: agora-bastian-staging
+stack_tags:
+  Environment: "staging"
 dependencies:
   - common/agoravpc.yaml
 parameters:
