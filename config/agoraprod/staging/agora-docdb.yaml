@@ -1,12 +1,12 @@
 template:
   path: documentdb.yaml
-stack_name: agora-docdb-prod
+stack_name: agora-docdb-staging
 stack_tags:
-  Environment: "prod"
+  Environment: "staging"
 dependencies:
-  - common/agoravpc.yaml
+  - agoraprod/common/agoravpc.yaml
 parameters:
   VpcName: "agoravpc"
   MasterUser: "master"
-  MasterPassword: !ssm /agora-prod/MongodbPassword
+  MasterPassword: !ssm /agora-staging/MongodbPassword
   DBInstanceClass: "db.r5.large"

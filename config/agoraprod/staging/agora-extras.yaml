@@ -4,7 +4,7 @@ stack_name: agora-staging-extras
 stack_tags:
   Environment: "staging"
 dependencies:
-  - staging/agora.yaml
+  - agoraprod/staging/agora.yaml
 parameters:
   ListenerArn: "arn:aws:elasticloadbalancing:us-east-1:681175625864:listener/app/awseb-AWSEB-1SQOS90BPM0QG/ca5d497adaf8f965/63173598c400fb9c"
   CertificateArn: !stack_output_external agora-dns::SSLCertificate

@@ -6,7 +6,7 @@ stack_tags:
 dependencies:
   - common/agora-common.yaml
   - common/agora-dns.yaml
-  - develop/agora-docdb.yaml
+  - agoradev/develop/agora-docdb.yaml
 parameters:
   AppDeployBucket: 'org-sagebase-agora-deployment-agora-develop'
   AppEnv: 'develop'
