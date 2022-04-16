@@ -5,7 +5,7 @@ stack_name: agora-bastian-develop
 stack_tags:
   Environment: "develop"
 dependencies:
-  - common/agoravpc.yaml
+  - develop/agoravpc.yaml
 parameters:
   VpcName: "agoravpc"
   # Name of an the environment either develop, staging or prod
