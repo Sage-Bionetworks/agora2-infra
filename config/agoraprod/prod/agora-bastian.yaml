@@ -1,15 +1,15 @@
 # Provision an EC2 bastian host for agora
 template:
   path: bastian.yaml
-stack_name: agora-bastian-develop
+stack_name: agora-bastian-prod
 stack_tags:
-  Environment: "develop"
+  Environment: "prod"
 dependencies:
-  - common/agoravpc.yaml
+  - agoraprod/common/agoravpc.yaml
 parameters:
   VpcName: "agoravpc"
   # Name of an the environment either develop, staging or prod
-  Environment: "develop"
+  Environment: "prod"
   # Name of an existing VPC subnet to run the instance in
   VpcSubnet: "PublicSubnet"
   # Name of an existing EC2 KeyPair to enable SSH access to the instance

@@ -4,7 +4,7 @@ stack_name: agora-prod-extras
 stack_tags:
   Environment: "prod"
 dependencies:
-  - prod/agora.yaml
+  - agoraprod/prod/agora.yaml
 parameters:
   ListenerArn: "arn:aws:elasticloadbalancing:us-east-1:681175625864:listener/app/awseb-AWSEB-KKEPXWRL6GA7/6422b8ce06abe48a/6dd0ba6b04d73869"
   CertificateArn: !stack_output_external agora-dns::SSLCertificate
