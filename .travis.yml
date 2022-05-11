@@ -1,30 +1,40 @@
-sudo: false
 language: python
 python: 3.8
 cache: pip
-fast_finish: true
-branches:
-  only:
-  - develop
-  - staging
-  - prod
+env:
+  global:
+    - REPO_NAME="${PWD##*/}"
+    - AWS_REGION="us-east-1"
 install:
-  - wget https://github.com/Sage-Bionetworks/infra-utils/archive/master.zip -O /tmp/infra-utils.zip
-  - unzip -j -n /tmp/infra-utils.zip -x "infra-utils-master/.gitignore" "infra-utils-master/LICENSE" "infra-utils-master/*.md" "infra-utils-master/aws/*"
-  - ./setup_aws_cli.sh || travis_terminate 1
-  - pip install pre-commit sceptre sceptre-ssm-resolver
+  # install awscli v2
+  - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+  - unzip awscliv2.zip && sudo ./aws/install
+  # install other tools
+  - pip install pre-commit travis-wait-improved sceptre sceptre-ssm-resolver
+before_script:
+  # Setup AWS CLI profile for multiple AWS accounts
+  - mkdir -p ~/.aws
+  - echo -e "[profile develop]\nsource_profile=ci-user-develop\nrole_arn=${AwsCfServiceRoleArn_develop}\n" > ~/.aws/config
+  - echo -e "[ci-user-develop]\naws_access_key_id=${AwsTravisAccessKey_develop}\naws_secret_access_key=${AwsTravisSecretAccessKey_develop}\n" > ~/.aws/credentials
+  - echo -e "[profile prod]\nsource_profile=ci-user-prod\nrole_arn=${AwsCfServiceRoleArn_prod}\n" >> ~/.aws/config
+  - echo -e "[ci-user-prod]\naws_access_key_id=${AwsTravisAccessKey_prod}\naws_secret_access_key=${AwsTravisSecretAccessKey_prod}\n" >> ~/.aws/credentials
 stages:
   - name: validate
-  - name: deploy
-    if: type = push
+  - name: deploy-develop
+    if: type = push AND branch = main
+#  - name: deploy-prod
+#    if: type = push AND branch = main
 jobs:
   include:
     - stage: validate
       script:
-        - pre-commit autoupdate
         - pre-commit run --all-files
-    - stage: deploy
+    - stage: deploy-develop
       script:
-        - sceptre launch common --yes
-        - travis_wait 45 sceptre launch $TRAVIS_BRANCH --yes
-        - sceptre launch misc --yes
+        - AWS_PROFILE=develop AWS_DEFAULT_REGION=${AWS_REGION} travis_wait 30 sceptre launch --yes common
+        - AWS_PROFILE=develop AWS_DEFAULT_REGION=${AWS_REGION} travis_wait 30 sceptre launch --yes agoradev/develop
+#    - stage: deploy-prod
+#      script:
+#        - AWS_PROFILE=prod AWS_DEFAULT_REGION=${AWS_REGION} travis_wait 30 sceptre launch --yes common
+#        - AWS_PROFILE=prod AWS_DEFAULT_REGION=${AWS_REGION} travis_wait 30 sceptre launch --yes agoraprod/staging
+#        - AWS_PROFILE=prod AWS_DEFAULT_REGION=${AWS_REGION} travis_wait 30 sceptre launch --yes agoraprod/prod
