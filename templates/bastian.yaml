@@ -53,6 +53,7 @@ Resources:
       ImageId: !Ref AMIId
       InstanceType: !Ref InstanceType
       KeyName: !Ref KeyName
+      PropagateTagsToVolumeOnCreation: true
       IamInstanceProfile: !Ref InstanceProfile
       SubnetId: !ImportValue
         'Fn::Sub': '${AWS::Region}-${VpcName}-${VpcSubnet}'
