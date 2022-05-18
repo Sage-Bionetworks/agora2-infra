@@ -321,6 +321,19 @@ Resources:
         - Namespace: 'aws:elasticbeanstalk:application:environment'
           OptionName: DISABLE_OPENCOLLECTIVE
           Value: !Ref DisableOpencollective
+        # ELB solution stack scheduled updates
+        - Namespace: 'aws:elasticbeanstalk:managedactions'
+          OptionName: ManagedActionsEnabled
+          Value: true
+        - Namespace: 'aws:elasticbeanstalk:managedactions'
+          OptionName: PreferredStartTime
+          Value: Sun:21:00
+        - Namespace: 'aws:elasticbeanstalk:managedactions:platformupdate'
+          OptionName: UpdateLevel
+          Value: minor
+        - Namespace: 'aws:elasticbeanstalk:managedactions:platformupdate'
+          OptionName: InstanceRefreshEnabled
+          Value: false
   BeanstalkEnvironment:
     Type: 'AWS::ElasticBeanstalk::Environment'
     Properties:
