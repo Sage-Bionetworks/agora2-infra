@@ -22,8 +22,8 @@ stages:
   - name: validate
   - name: deploy-develop
     if: type = push AND branch = main
-#  - name: deploy-prod
-#    if: type = push AND branch = main
+  - name: deploy-prod
+    if: type = push AND branch = main
 jobs:
   include:
     - stage: validate
@@ -33,8 +33,8 @@ jobs:
       script:
         - AWS_PROFILE=develop AWS_DEFAULT_REGION=${AWS_REGION} travis_wait 30 sceptre launch --yes common
         - AWS_PROFILE=develop AWS_DEFAULT_REGION=${AWS_REGION} travis_wait 30 sceptre launch --yes agoradev/develop
-#    - stage: deploy-prod
-#      script:
-#        - AWS_PROFILE=prod AWS_DEFAULT_REGION=${AWS_REGION} travis_wait 30 sceptre launch --yes common
-#        - AWS_PROFILE=prod AWS_DEFAULT_REGION=${AWS_REGION} travis_wait 30 sceptre launch --yes agoraprod/staging
-#        - AWS_PROFILE=prod AWS_DEFAULT_REGION=${AWS_REGION} travis_wait 30 sceptre launch --yes agoraprod/prod
+    - stage: deploy-prod
+      script:
+        - AWS_PROFILE=prod AWS_DEFAULT_REGION=${AWS_REGION} travis_wait 30 sceptre launch --yes common
+        - AWS_PROFILE=prod AWS_DEFAULT_REGION=${AWS_REGION} travis_wait 30 sceptre launch --yes agoraprod/staging
+        - AWS_PROFILE=prod AWS_DEFAULT_REGION=${AWS_REGION} travis_wait 30 sceptre launch --yes agoraprod/prod
