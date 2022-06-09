@@ -5,9 +5,10 @@ stack_name: agora-bastian-prod
 stack_tags:
   Environment: "prod"
 dependencies:
-  - agoraprod/common/agoravpc.yaml
+  - agoraprod/prod/agora.yaml
+  - agoraprod/prod/agora-docdb.yaml
 parameters:
-  VpcName: "agoravpc"
+  VpcName: "agoravpc-prod"
   # Name of an the environment either develop, staging or prod
   Environment: "prod"
   # Name of an existing VPC subnet to run the instance in
@@ -15,4 +16,4 @@ parameters:
   # Name of an existing EC2 KeyPair to enable SSH access to the instance
   KeyName: "agora-ci"
   # (Optional) ID of the base AMI (supported distros: AWS linux)
-  AMIId: ami-003ed7eaef0321c8f     # AMI with mongo db tools
+  AMIId: ami-05b72d008a5718961     # AMI with mongo and synapse tools
