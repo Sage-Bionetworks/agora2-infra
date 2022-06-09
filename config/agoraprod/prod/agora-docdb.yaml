@@ -4,9 +4,9 @@ stack_name: agora-docdb-prod
 stack_tags:
   Environment: "prod"
 dependencies:
-  - agoraprod/common/agoravpc.yaml
+  - agoraprod/prod/agoravpc.yaml
 parameters:
-  VpcName: "agoravpc"
+  VpcName: "agoravpc-prod"
   MasterUser: "master"
   MasterPassword: !ssm /agora-prod/MongodbPassword
   DBInstanceClass: "db.r5.large"

@@ -4,9 +4,9 @@ stack_name: agora-docdb-staging
 stack_tags:
   Environment: "staging"
 dependencies:
-  - agoraprod/common/agoravpc.yaml
+  - agoraprod/staging/agoravpc.yaml
 parameters:
-  VpcName: "agoravpc"
+  VpcName: "agoravpc-staging"
   MasterUser: "master"
   MasterPassword: !ssm /agora-staging/MongodbPassword
   DBInstanceClass: "db.r5.large"

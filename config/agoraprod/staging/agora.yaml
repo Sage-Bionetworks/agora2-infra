@@ -17,10 +17,10 @@ parameters:
   EbDeploymentPolicy: 'RollingWithAdditionalBatch'
   SnsBounceNotificationEndpoint: 'agora-staging-bounce-notifications@sagebase.org'
   SnsNotificationEndpoint: 'agora-staging@sagebase.org'
-  EbSolutionStackName: '64bit Amazon Linux 2 v5.5.1 running Node.js 16'
+  EbSolutionStackName: '64bit Amazon Linux 2 v5.5.3 running Node.js 16'
   EC2InstanceType: 't3.large'
   EC2KeyName: 'agora-access'
   MongodbHost: !stack_output_external agora-docdb-staging::ClusterEndpoint
   MongodbAccessSecurityGroup: !stack_output_external agora-docdb-staging::DocumentDbAccessSecurityGroup
-  VpcName: 'agoravpc'
+  VpcName: 'agoravpc-staging'
   CertificateArn: !stack_output_external agora-dns::SSLCertificate

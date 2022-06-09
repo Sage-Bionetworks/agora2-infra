@@ -6,5 +6,5 @@ stack_tags:
 dependencies:
   - agoraprod/prod/agora.yaml
 parameters:
-  ListenerArn: "arn:aws:elasticloadbalancing:us-east-1:681175625864:listener/app/awseb-AWSEB-KKEPXWRL6GA7/6422b8ce06abe48a/6dd0ba6b04d73869"
+  ListenerArn: "arn:aws:elasticloadbalancing:us-east-1:681175625864:listener/app/awseb-AWSEB-1H0NS7MG8SJXY/7635c01282c2ba09/1393cdfd2ec41c2e"
   CertificateArn: !stack_output_external agora-dns::SSLCertificate
