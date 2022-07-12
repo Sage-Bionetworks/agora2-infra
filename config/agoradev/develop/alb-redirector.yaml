@@ -2,7 +2,7 @@ template:
   path: alb-redirector.yaml
 stack_name: agora-dev-alb-redirector
 dependencies:
-  - agoradev/develop/agora.yaml
+  - develop/agora.yaml
 parameters:
   ListenerArn: "arn:aws:elasticloadbalancing:us-east-1:607346494281:listener/app/awseb-AWSEB-N08JADX0RT38/96cce8aaafaf091a/d737981cbd867081"
   RedirectFromHost: "agora-develop.ampadportal.org"
