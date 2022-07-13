@@ -1,5 +1,0 @@
-template:
-  path: dns.yaml
-stack_name: agora-dns
-parameters:
-  DnsDomainName: 'ampadportal.org'

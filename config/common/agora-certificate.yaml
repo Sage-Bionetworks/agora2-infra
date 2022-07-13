@@ -1,0 +1,5 @@
+template:
+  path: certificate.yaml
+stack_name: agora-certificate
+parameters:
+  DnsDomainName: 'adknowledgeportal.org'

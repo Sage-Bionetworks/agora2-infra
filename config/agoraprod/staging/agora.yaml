@@ -5,7 +5,7 @@ stack_tags:
   Environment: "staging"
 dependencies:
   - common/agora-common.yaml
-  - common/agora-dns.yaml
+  - common/agora-certificate.yaml
   - agoraprod/staging/agora-docdb.yaml
 parameters:
   AppDeployBucket: 'org-sagebase-agora-deployment-agora-staging'
@@ -23,4 +23,4 @@ parameters:
   MongodbHost: !stack_output_external agora-docdb-staging::ClusterEndpoint
   MongodbAccessSecurityGroup: !stack_output_external agora-docdb-staging::DocumentDbAccessSecurityGroup
   VpcName: 'agoravpc-staging'
-  CertificateArn: !stack_output_external agora-dns::SSLCertificate
+  CertificateArn: !stack_output_external agora-certificate::SSLCertificate

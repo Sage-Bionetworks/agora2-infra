@@ -1,16 +1,10 @@
-Description: Setup a hosted zone for DNS
+Description: Setup a Certificate for a domain
 AWSTemplateFormatVersion: 2010-09-09
 Parameters:
   DnsDomainName:
     Description: A fully qualified domain name (i.e. sagebionetworks.org)
     Type: String
 Resources:
-  HostedZone:
-    Type: "AWS::Route53::HostedZone"
-    Properties:
-      HostedZoneConfig:
-        Comment: !Sub "Hosted zone for ${DnsDomainName}"
-      Name: !Join ["", [!Ref DnsDomainName, "."]]
   SSLCertificate:
     Type: AWS::CertificateManager::Certificate
     Properties:
@@ -26,10 +20,6 @@ Resources:
               - !Ref DnsDomainName
           ValidationDomain: !Ref DnsDomainName
 Outputs:
-  HostedZoneId:
-    Value: !Ref HostedZone
-    Export:
-      Name: !Sub '${AWS::Region}-${AWS::StackName}-HostedZoneId'
   SSLCertificate:
     Value: !Ref SSLCertificate
     Export:
