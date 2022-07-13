@@ -136,23 +136,6 @@ Resources:
               - ''
               - - !GetAtt S3AppDeployBucket.Arn
                 - '/*'
-  R53RecordSet:
-    Type: 'AWS::Route53::RecordSet'
-    Properties:
-      HostedZoneId:
-        'Fn::ImportValue': !Sub ${AWS::Region}-agora-dns-HostedZoneId
-      Name: !Join
-        - ''
-        - - !Ref AWS::StackName
-          - .
-          - 'Fn::ImportValue': !Sub ${AWS::Region}-agora-dns-DnsDomainName
-          - .
-      Type: CNAME
-      TTL: 900
-      ResourceRecords:
-        - !GetAtt
-          - BeanstalkEnvironment
-          - EndpointURL
   # KMS Keys
   KmsDecryptManagedPolicy:
     Type: "AWS::IAM::ManagedPolicy"
@@ -392,15 +375,6 @@ Outputs:
     Value: !Ref S3AppDeployBucket
     Export:
       Name: !Sub '${AWS::Region}-${AWS::StackName}-AppDeployBucket'
-  AppPublicEndpoint:
-    Value: !Join
-      - ''
-      - - 'https://'
-        - !Ref AWS::StackName
-        - .
-        - 'Fn::ImportValue': !Sub ${AWS::Region}-agora-dns-DnsDomainName
-    Export:
-      Name: !Sub '${AWS::Region}-${AWS::StackName}-AppPublicEndpoint'
   BeanstalkEnvironmentName:
     Value: !Ref BeanstalkEnvironment
     Export:

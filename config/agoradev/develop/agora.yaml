@@ -5,7 +5,7 @@ stack_tags:
   Environment: "develop"
 dependencies:
   - common/agora-common.yaml
-  - common/agora-dns.yaml
+  - common/agora-certificate.yaml
   - agoradev/develop/agora-docdb.yaml
 parameters:
   AppDeployBucket: 'org-sagebase-agora-deployment-agora-develop'
@@ -23,4 +23,4 @@ parameters:
   MongodbHost: !stack_output_external agora-docdb-develop::ClusterEndpoint
   MongodbAccessSecurityGroup: !stack_output_external agora-docdb-develop::DocumentDbAccessSecurityGroup
   VpcName: 'agoravpc'
-  CertificateArn: !stack_output_external agora-dns::SSLCertificate
+  CertificateArn: !stack_output_external agora-certificate::SSLCertificate
