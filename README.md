@@ -26,13 +26,13 @@ There is a specific workflow for making changes to the infrastructure.
 * Make pull requests to this repo
 * Get someone to review and approve your changes
 * Change is merged after being approved
-* Travis runs a build to test the infrastructure templates
-* Travis deploys the updated infrastructure to AWS
+* Github action runs a build to test the infrastructure templates
+* Github action deploys the updated infrastructure to AWS
 
 
 ## Continuous Integration
-We have configured Travis to deploy CF template updates.  Travis deploys using
-[sceptre](https://sceptre.cloudreach.com/latest/about.html)
+We have configured Github actions to deploy CF template updates.  GH action
+deploys using [sceptre](https://sceptre.cloudreach.com/latest/about.html)
 
 
 # AWS Infrastructure
@@ -44,7 +44,7 @@ is setup to run Agora in three environments:
 
 ## Deployment Workflow
 To deploy Agora updates to one of the environments just merge code to the branch you would like
-to deploy to then Travis will take care of building, testing and deployming the Agora
+to deploy to then GH action will take care of building, testing and deployming the Agora
 application.
 
 
@@ -52,9 +52,6 @@ application.
 
 ## Issues
 * https://sagebionetworks.jira.com/projects/IT
-
-## Builds
-* https://travis-ci.org/Sage-Bionetworks/agora-infra
 
 ## Secrets
 * We use the [AWS SSM](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html)
