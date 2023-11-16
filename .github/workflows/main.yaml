@@ -47,7 +47,7 @@ jobs:
       sceptre-command: "sceptre launch agoradev/develop --prune --yes"
   deploy-agoraprod-common:
     if: github.ref == 'refs/heads/main'
-    needs: [deploy-agoradev-staging]
+    needs: [deploy-agoradev]
     uses: "./.github/workflows/aws-deploy.yaml"
     with:
       role-to-assume: "arn:aws:iam::681175625864:role/sagebase-github-oidc-agora-infra-deploy"
