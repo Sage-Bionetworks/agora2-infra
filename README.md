@@ -44,7 +44,7 @@ is setup to run Agora in three environments:
 
 ## Deployment Workflow
 To deploy Agora updates to one of the environments just merge code to the branch you would like
-to deploy to then GH action will take care of building, testing and deployming the Agora
+to deploy to then GH action will take care of building, testing and deploying the Agora
 application.
 
 
