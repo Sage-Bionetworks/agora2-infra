@@ -47,7 +47,7 @@ jobs:
       sceptre-command: "sceptre launch agoradev/develop --prune --yes"
   deploy-agoraprod-common:
     if: github.ref == 'refs/heads/main'
-    needs: [pre-commit, jinja-lint]
+    needs: [deploy-agoradev]
     uses: "./.github/workflows/aws-deploy.yaml"
     with:
       role-to-assume: "arn:aws:iam::681175625864:role/sagebase-github-oidc-agora-infra-deploy"
@@ -61,7 +61,7 @@ jobs:
       sceptre-command: "sceptre launch agoraprod/staging --prune --yes"
   deploy-agoraprod-prod:
     if: github.ref == 'refs/heads/main'
-    needs: [deploy-agoraprod-common]
+    needs: [deploy-agoraprod-staging]
     uses: "./.github/workflows/aws-deploy.yaml"
     with:
       role-to-assume: "arn:aws:iam::681175625864:role/sagebase-github-oidc-agora-infra-deploy"
