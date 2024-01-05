@@ -59,8 +59,6 @@ Resources:
         'Fn::Sub': '${AWS::Region}-${VpcName}-${VpcSubnet}'
       SecurityGroupIds:
         - !ImportValue
-          'Fn::Sub': '${AWS::Region}-${VpcName}-BastianSecurityGroup'
-        - !ImportValue
           'Fn::Sub': '${AWS::Region}-agora-docdb-${Environment}-DocumentDbAccessSecurityGroup'
       Tags:
         - Key: "ManagedInstanceMaintenanceTarget"
