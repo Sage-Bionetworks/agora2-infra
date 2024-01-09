@@ -12,7 +12,7 @@ parameters:
   # Name of an the environment either develop, staging or prod
   Environment: "prod"
   # Name of an existing VPC subnet to run the instance in
-  VpcSubnet: "PublicSubnet"
+  VpcSubnet: "PrivateSubnet"
   # Name of an existing EC2 KeyPair to enable SSH access to the instance
   KeyName: "agora-ci"
   # (Optional) ID of the base AMI (supported distros: AWS linux)
