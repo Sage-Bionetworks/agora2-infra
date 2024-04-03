@@ -13,7 +13,6 @@ parameters:
   AppHealthcheckUrl: '/about'
   AutoScalingMaxSize: '6'
   AutoScalingMinSize: '3'
-  EbHealthReportingSystem: 'enhanced'
   EbDeploymentPolicy: 'RollingWithAdditionalBatch'
   SnsBounceNotificationEndpoint: 'agora-prod-bounce-notifications@sagebase.org'
   SnsNotificationEndpoint: 'agora-prod@sagebase.org'
