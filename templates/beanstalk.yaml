@@ -79,6 +79,9 @@ Parameters:
   CertificateArn:
     Description: ARN of the SSL Certificate
     Type: String
+  EnhancedHealthRulesConfigDocument:
+    Description: Configuration enhanced health rules (https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-rules.html#health-enhanced-rules.configdocument)
+    Type: String
 Resources:
   S3AppDeployBucket:
     Type: 'AWS::S3::Bucket'
@@ -281,30 +284,7 @@ Resources:
           Value: 'enhanced'
         - Namespace: 'aws:elasticbeanstalk:healthreporting:system'
           OptionName: ConfigDocument
-          Value: >
-            {
-              "Rules": {
-                "Environment": {
-                  "Application": {
-                    "ApplicationRequests4xx": {
-                      "Enabled": false
-                    },
-                    "ApplicationRequests5xx": {
-                      "Enabled": false
-                    }
-                  },
-                  "ELB": {
-                    "ELBRequests4xx": {
-                      "Enabled": true
-                    },
-                    "ELBRequests5xx": {
-                      "Enabled": true
-                    }
-                  }
-                }
-              },
-              "Version": 1
-            }
+          Value: !Ref EnhancedHealthRulesConfigDocument
         - Namespace: 'aws:elasticbeanstalk:hostmanager'
           OptionName: LogPublicationControl
           Value: 'true'

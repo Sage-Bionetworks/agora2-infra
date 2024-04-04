@@ -23,3 +23,4 @@ parameters:
   MongodbAccessSecurityGroup: !stack_output_external agora-docdb-develop::DocumentDbAccessSecurityGroup
   VpcName: 'agoravpc'
   CertificateArn: !stack_output_external agora-certificate::SSLCertificate
+  EnhancedHealthRulesConfigDocument: !file_contents config/EnhancedHealthRulesConfigDocument.json
