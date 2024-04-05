@@ -1,0 +1,71 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Cloudwatch Dashboards
+Resources:
+  Dashboard:
+    Type: AWS::CloudWatch::Dashboard
+    Properties:
+      DashboardName: {{ sceptre_user_data.BeanstalkEnvironmentName }}
+      DashboardBody: >
+        {
+          "widgets": [
+            {
+              "type": "metric",
+              "width": 20,
+              "height": 6,
+              "properties": {
+                "metrics": [
+                  [
+                    "AWS/ElasticBeanstalk",
+                    "EnvironmentHealth",
+                    "EnvironmentName",
+                    "{{ sceptre_user_data.BeanstalkEnvironmentName }}",
+                    {
+                      "period": 300,
+                      "stat": "Average",
+                      "region": "us-east-1"
+                    }
+                  ]
+                ],
+                "legend": {
+                  "position": "bottom"
+                },
+                "region": "us-east-1",
+                "liveData": false,
+                "title": "EnvironmentHealth: Average",
+                "view": "timeSeries",
+                "stacked": false
+              }
+            },
+            {
+              "type": "metric",
+              "properties": {
+                "metrics": [
+                  [
+                    "AWS/ElasticBeanstalk",
+                    "ApplicationRequests2xx",
+                    "EnvironmentName",
+                    "{{ sceptre_user_data.BeanstalkEnvironmentName }}",
+                    {
+                      "period": 300,
+                      "stat": "Average",
+                      "region": "us-east-1"
+                    }
+                  ]
+                ],
+                "legend": {
+                  "position": "bottom"
+                },
+                "region": "us-east-1",
+                "liveData": false,
+                "title": "ApplicationRequests2xx: Average",
+                "view": "timeSeries",
+                "stacked": false
+              }
+            }
+          ]
+        }
+Outputs:
+  Dashboard:
+    Value: !Ref Dashboard
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-Dashboard'
