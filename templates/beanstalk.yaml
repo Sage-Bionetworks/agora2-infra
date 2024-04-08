@@ -24,13 +24,6 @@ Parameters:
       - true
       - false
     ConstraintDescription: 'Valid values are true or false'
-  EbHealthReportingSystem:
-    Type: String
-    Default: basic
-    AllowedValues:
-      - basic
-      - enhanced
-    ConstraintDescription: must be either basic or enhanced
   SnsBounceNotificationEndpoint:
     Type: String
     Description: Email address for SNS bounce notifications
@@ -85,6 +78,9 @@ Parameters:
     Type: String
   CertificateArn:
     Description: ARN of the SSL Certificate
+    Type: String
+  EnhancedHealthRulesConfigDocument:
+    Description: Configuration enhanced health rules (https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-rules.html#health-enhanced-rules.configdocument)
     Type: String
 Resources:
   S3AppDeployBucket:
@@ -285,7 +281,10 @@ Resources:
           Value: 'HTTP'
         - Namespace: 'aws:elasticbeanstalk:healthreporting:system'
           OptionName: SystemType
-          Value: !Ref EbHealthReportingSystem
+          Value: 'enhanced'
+        - Namespace: 'aws:elasticbeanstalk:healthreporting:system'
+          OptionName: ConfigDocument
+          Value: !Ref EnhancedHealthRulesConfigDocument
         - Namespace: 'aws:elasticbeanstalk:hostmanager'
           OptionName: LogPublicationControl
           Value: 'true'

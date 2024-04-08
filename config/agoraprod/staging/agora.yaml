@@ -13,7 +13,6 @@ parameters:
   AppHealthcheckUrl: '/about'
   AutoScalingMaxSize: '4'
   AutoScalingMinSize: '2'
-  EbHealthReportingSystem: 'enhanced'
   EbDeploymentPolicy: 'RollingWithAdditionalBatch'
   SnsBounceNotificationEndpoint: 'agora-staging-bounce-notifications@sagebase.org'
   SnsNotificationEndpoint: 'agora-staging@sagebase.org'
@@ -24,3 +23,4 @@ parameters:
   MongodbAccessSecurityGroup: !stack_output_external agora-docdb-staging::DocumentDbAccessSecurityGroup
   VpcName: 'agoravpc-staging'
   CertificateArn: !stack_output_external agora-certificate::SSLCertificate
+  EnhancedHealthRulesConfigDocument: !file_contents config/EnhancedHealthRulesConfigDocument.json
