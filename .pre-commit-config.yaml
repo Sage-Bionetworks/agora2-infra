@@ -26,4 +26,4 @@ repos:
     rev: v1.1.0
     hooks:
       - id: j2lint
-#        args: [--ignore, S3, V1, --]
+        args: [--ignore, V1, --]

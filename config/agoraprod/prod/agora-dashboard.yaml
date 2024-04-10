@@ -1,0 +1,9 @@
+template:
+  path: cw-dashboard.j2
+stack_name: agora-staging-dashboard
+stack_tags:
+  Environment: "prod"
+dependencies:
+  - agoraprod/prod/agora.yaml
+sceptre_user_data:
+  BeanstalkEnvironmentName: "agora-prod"
