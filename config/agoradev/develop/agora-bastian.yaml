@@ -8,7 +8,6 @@ dependencies:
   - agoradev/develop/agora.yaml
   - agoradev/develop/agoravpc.yaml
 parameters:
-  InstanceType: t3.micro
   VpcName: "agoravpc"
   # Name of an the environment either develop, staging or prod
   Environment: "develop"
