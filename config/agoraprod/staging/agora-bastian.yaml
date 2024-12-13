@@ -16,4 +16,4 @@ parameters:
   # Name of an existing EC2 KeyPair to enable SSH access to the instance
   KeyName: "agora-ci"
   # (Optional) ID of the base AMI (supported distros: AWS linux)
-  AMIId: ami-05b72d008a5718961     # AMI with mongo and synapse tools
+  AMIId: ami-055ca5683a7880ef2      # AMI with mongo, synapse and Github hosted runner tools
