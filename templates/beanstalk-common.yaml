@@ -46,6 +46,7 @@ Resources:
         - '-'
         - - !Ref AWS::StackName
           - "KmsKey"
+      EnableKeyRotation: true
       KeyPolicy:
         Version: "2012-10-17"
         Statement:
