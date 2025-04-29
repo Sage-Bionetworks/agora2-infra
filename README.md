@@ -2,6 +2,23 @@
 Infrastructure for the [Agora](https://github.com/Sage-Bionetworks/Agora)
 application.
 
+# ⚠️ DEPRECATED REPOSITORY
+
+**As of April 29, 2025, this repository has been deprecated and is no longer maintained.**
+- No further development will occur in this repository.
+- This repository will not be monitored.
+
+
+## New Repository Location
+
+Infrastructure for the [Agora](https://github.com/Sage-Bionetworks/Agora)
+application is now managed via this repository:
+
+**[https://github.com/Sage-Bionetworks-IT/agora-infra-v3](https://github.com/Sage-Bionetworks-IT/agora-infra-v3)**  
+
+
+For information about the agora-infra-v3 repo, see the [agora-infra-v3 README]https://github.com/Sage-Bionetworks-IT/agora-infra-v3/blob/dev/README.md).
+
 
 # Purpose
 This repo contains infrastructure templates for the Agora application.
